@@ -1,6 +1,6 @@
-FROM golang:alpine
+FROM alpine:edge
 
-RUN apk add --no-cache vim sudo git ruby ruby-rdoc ruby-irb ruby-bundler ruby-dev nodejs yarn postgresql-client
+RUN apk add --no-cache vim sudo git ruby ruby-rdoc ruby-irb ruby-bundler ruby-dev ruby-rake go nodejs yarn postgresql-client
 
 ENV LANG=en_US.utf8
 
