@@ -7,7 +7,7 @@ ENV LANG=en_US.utf8
 RUN sudo adduser -s /bin/nologin -g 'GitLab' -D git; \
 	chown -R git:git /home/git; \
 	cd /home/git; \
-	sudo -u git -H git clone https://gitlab.com/gitlab-org/gitlab-ce.git gitlab -v
+	sudo -u git -H git clone --depth 1 https://gitlab.com/gitlab-org/gitlab-ce.git gitlab -v
 
 COPY assets /home/git/build/
 RUN ash /home/git/build/install.sh
