@@ -13,6 +13,9 @@ sudo -u git -H bundle config --local build.gpgme --use-system-libraries
 # gitlab
 sudo -u git -H bundle install --deployment --without development test mysql aws -j2
 
+# tzinfo-data
+sudo -u git -H gem install tzinfo-data
+
 # gitlab-shell
 sudo -u git -H bundle exec rake gitlab:shell:install RAILS_ENV=production SKIP_STORAGE_VALIDATION=true
 
