@@ -4,6 +4,10 @@ set -x
 
 cd /home/git/gitlab
 
+sudo -u git -H cp config/gitlab.yml.example config/gitlab.yml
+sudo -u git -H cp config/database.yml.postgresql config/database.yml
+sudo -u git -H cp config/resque.yml.example config/resque.yml
+
 apk add --no-cache --virtual .builddev build-base ruby-dev ruby-rake ruby-bigdecimal ruby-irb go icu-dev zlib-dev libffi-dev cmake krb5-dev postgresql-dev linux-headers re2-dev libassuan-dev libgpg-error-dev gpgme-dev
 
 sudo -u git -H echo "install: --no-document" > .gemrc
