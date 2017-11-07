@@ -39,6 +39,7 @@ sudo -u git -H bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_
 
 # clean up
 sudo -u git -H yarn cache clean
+sudo -u git -H rm -rf tmp/assets
 
 apk del --no-cache .builddev
 
