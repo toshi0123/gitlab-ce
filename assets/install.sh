@@ -37,6 +37,9 @@ sudo -u git -H bundle exec rake gettext:po_to_json RAILS_ENV=production
 sudo -u git -H yarn install --production --pure-lockfile
 sudo -u git -H bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production
 
+# clean up
+sudo -u git -H yarn cache clean
+
 apk del --no-cache .builddev
 
 RUNDEP=`scanelf --needed --nobanner --format '%n#p' --recursive /home/git/ | tr ',' '\n' | sort -u | awk 'system("[ -e /lib/" $1 " -o -e /usr/lib/" $1 " -o -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }'`
