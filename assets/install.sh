@@ -39,7 +39,7 @@ sudo -u git -H bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_
 
 # clean up
 sudo -u git -H yarn cache clean
-sudo -u git -H rm -rf tmp/assets
+sudo -u git -H rm -rf tmp/cache/assets
 find /home/git -type d -name '.git' | xargs rm -rf
 find /home/git -type f -name '*.gem' | xargs rm -f
 
