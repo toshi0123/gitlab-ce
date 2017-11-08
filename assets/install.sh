@@ -47,6 +47,8 @@ sudo -u git -H rm -rf tmp/cache/assets
 find /home/git -type d -name '.git' | xargs rm -rf
 find /home/git -type f -name '*.gem' | xargs rm -f
 
+for fn in `find /home/git -type f -name 'Makefile'`;do ( cd `dirname $fn`;make clean );done
+
 apk del --no-cache .builddev
 
 RUNDEP=`scanelf --needed --nobanner --format '%n#p' --recursive /home/git/ | tr ',' '\n' | sort -u | awk 'system("[ -e /lib/" $1 " -o -e /usr/lib/" $1 " -o -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }'`
