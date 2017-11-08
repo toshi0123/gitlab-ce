@@ -14,8 +14,10 @@ sudo -u git -H echo "install: --no-document" > .gemrc
 
 sudo -u git -H bundle config --local build.gpgme --use-system-libraries
 
+echo "git ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/git
+
 # gitlab
-sudo -u git -H bundle install --deployment --without development test mysql aws -j2
+sudo -u git -H bundle install --system --without development test mysql aws -j2
 
 # tzdata
 apk add --no-cache tzdata
@@ -43,7 +45,7 @@ sudo -u git -H rm -rf tmp/cache/assets
 find /home/git -type d -name '.git' | xargs rm -rf
 find /home/git -type f -name '*.gem' | xargs rm -f
 
-for fn in `find /home/git -type f -name 'Makefile'`;do ( cd `dirname $fn`;make clean );done
+for fn in `find / -type f -name 'Makefile'`;do ( cd `dirname $fn`;make clean );done
 
 apk del --no-cache .builddev
 
