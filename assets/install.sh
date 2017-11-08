@@ -14,10 +14,6 @@ sudo -u git -H echo "install: --no-document" > .gemrc
 
 sudo -u git -H bundle config --local build.gpgme --use-system-libraries
 
-sudo -u git -H mkdir -p /home/git/bin /home/git/vendor/bundler
-sudo -u git -H bundle config --local path /home/git/vendor/bundler
-sudo -u git -H bundle config --local bin /home/git/bin
-
 # gitlab
 sudo -u git -H bundle install --deployment --without development test mysql aws -j2
 
