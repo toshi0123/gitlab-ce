@@ -57,4 +57,8 @@ RUNDEP2=`scanelf --needed --nobanner --format '%n#p' --recursive /usr/lib/ruby |
 
 apk add --no-cache $RUNDEP $RUNDEP2
 
+sudo -u git -H git config --global core.autocrlf input
+sudo -u git -H git config --global gc.auto 0
+sudo -u git -H git config --global repack.writeBitmaps true
+
 date
