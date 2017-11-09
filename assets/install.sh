@@ -45,15 +45,16 @@ echo $?
 # clean up
 sudo -u git -H yarn cache clean
 sudo -u git -H rm -rf tmp/cache/assets
-find / -type d -name '.git' | xargs rm -rf
+find /home/git -type d -name '.git' | xargs rm -rf
 find / -type f -name '*.gem' | xargs rm -f
 
 for fn in `find / -type f -name 'Makefile'`;do ( cd `dirname $fn`;make clean );done
 
 apk del --no-cache .builddev
 
-RUNDEP=`scanelf --needed --nobanner --format '%n#p' --recursive / | tr ',' '\n' | sort -u | awk 'system("[ -e /lib/" $1 " -o -e /usr/lib/" $1 " -o -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }'`
+RUNDEP=`scanelf --needed --nobanner --format '%n#p' --recursive /home/git | tr ',' '\n' | sort -u | awk 'system("[ -e /lib/" $1 " -o -e /usr/lib/" $1 " -o -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }'`
+RUNDEP2=`scanelf --needed --nobanner --format '%n#p' --recursive /usr/lib/ruby | tr ',' '\n' | sort -u | awk 'system("[ -e /lib/" $1 " -o -e /usr/lib/" $1 " -o -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }'`
 
-apk add --no-cache $RUNDEP
+apk add --no-cache $RUNDEP $RUNDEP2
 
 date
