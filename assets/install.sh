@@ -19,7 +19,7 @@ sudo -u git -H bundle config --local build.gpgme --use-system-libraries
 echo "git ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/git
 
 # gitlab
-sudo -u git -H bundle install --system --without development test mysql aws -j2
+sudo -u git -H bundle install --system --without development test mysql aws -j$(nproc)
 
 # tzdata
 apk add --no-cache tzdata
@@ -34,12 +34,12 @@ sudo -u git -H bundle exec rake "gitlab:workhorse:install[/home/git/gitlab-workh
 sudo -u git -H bundle exec rake "gitlab:gitaly:install[/home/git/gitaly]" RAILS_ENV=production
 
 # gettext
-sudo -u git -H bundle exec rake gettext:pack RAILS_ENV=production
+sudo -u git -H bundle exec rake gettext:pack RAILS_ENV=production > gettext_pack.log 2>&1
 sudo -u git -H bundle exec rake gettext:po_to_json RAILS_ENV=production
 
 # assets
 sudo -u git -H yarn install --production --pure-lockfile
-sudo -u git -H bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production > assets.log
+sudo -u git -H bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production > assets.log 2>&1
 echo $?
 
 # clean up
@@ -48,7 +48,7 @@ sudo -u git -H rm -rf tmp/cache/assets
 find /home/git -type d -name '.git' | xargs rm -rf
 find / -type f -name '*.gem' | xargs rm -f
 
-for fn in `find / -type f -name 'Makefile'`;do ( cd `dirname $fn`;make clean );done
+for fn in `find / -type f -name 'Makefile'`;do ( cd `dirname $fn`;make clean );done > make.log 2>&1
 
 apk del --no-cache .builddev
 
