@@ -4,7 +4,7 @@ RUN apk add --no-cache vim sudo git ruby ruby-bundler nodejs postgresql-client
 
 ENV LANG=en_US.utf8
 
-RUN sudo adduser -s /bin/nologin -g 'GitLab' -D git; \
+RUN sudo adduser -s /sbin/nologin -g 'GitLab' -D git; \
 	chown -R git:git /home/git; \
 	cd /home/git; \
 	TAG=`git ls-remote -t https://gitlab.com/gitlab-org/gitlab-ce.git | grep -v -e '\^{}' -e 'rc[0-9]*' -e 'pre' | grep -o 'v10\..*$' | tail -1`; \
