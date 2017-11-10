@@ -85,6 +85,7 @@ sudo -u git -H git config --global gc.auto 0
 sudo -u git -H git config --global repack.writeBitmaps true
 
 sudo -u git -H cp config/unicorn.rb.example config/unicorn.rb
+sudo -u git -H cp config/initializers/rack_attack.rb.example config/initializers/rack_attack.rb
 
 sudo cp lib/support/init.d/gitlab /etc/init.d/gitlab
 mkdir -p /etc/default/
