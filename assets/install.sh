@@ -71,6 +71,8 @@ find / -type f -name '*.gem' | xargs rm -f
 
 for fn in `find / -type f -name 'Makefile'`;do ( cd `dirname $fn`;make clean );done > make.log 2>&1
 
+rm -f /etc/sudoers.d/git
+
 apk del --no-cache .builddev
 
 RUNDEP=`scanelf --needed --nobanner --format '%n#p' --recursive /home/git | tr ',' '\n' | sort -u | awk 'system("[ -e /lib/" $1 " -o -e /usr/lib/" $1 " -o -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }'`
