@@ -82,4 +82,12 @@ sudo -u git -H git config --global core.autocrlf input
 sudo -u git -H git config --global gc.auto 0
 sudo -u git -H git config --global repack.writeBitmaps true
 
+sudo -u git -H cp config/unicorn.rb.example config/unicorn.rb
+
+sudo cp lib/support/init.d/gitlab /etc/init.d/gitlab
+mkdir -p /etc/default/
+sudo cp lib/support/init.d/gitlab.default.example /etc/default/gitlab
+
+sed -i 's|/bin/bash|/bin/sh|g' /etc/init.d/gitlab /etc/default/gitlab
+
 date
