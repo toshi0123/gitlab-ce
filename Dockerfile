@@ -1,6 +1,6 @@
 FROM alpine:edge
 
-RUN apk add --no-cache vim sudo git ruby ruby-bundler nodejs postgresql-client
+RUN apk add --no-cache vim sudo git ruby ruby-bundler nodejs postgresql-client ruby-rake procps openssh-server
 
 ENV LANG=en_US.utf8
 
