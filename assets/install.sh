@@ -10,7 +10,7 @@ sudo -u git -H cp config/gitlab.yml.example config/gitlab.yml
 sudo -u git -H cp config/database.yml.postgresql config/database.yml
 sudo -u git -H cp config/resque.yml.example config/resque.yml
 
-apk add --no-cache --virtual .builddev build-base ruby-dev ruby-bigdecimal ruby-irb go icu-dev zlib-dev libffi-dev \
+apk add --no-cache --virtual .builddev build-base ruby-dev go icu-dev zlib-dev libffi-dev \
   cmake krb5-dev postgresql-dev linux-headers re2-dev libassuan-dev libgpg-error-dev gpgme-dev coreutils yarn
 
 sudo -u git -H echo "install: --no-document" > .gemrc
@@ -76,7 +76,7 @@ apk del --no-cache .builddev
 RUNDEP=`scanelf --needed --nobanner --format '%n#p' --recursive /home/git | tr ',' '\n' | sort -u | awk 'system("[ -e /lib/" $1 " -o -e /usr/lib/" $1 " -o -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }'`
 RUNDEP2=`scanelf --needed --nobanner --format '%n#p' --recursive /usr/lib/ruby | tr ',' '\n' | sort -u | awk 'system("[ -e /lib/" $1 " -o -e /usr/lib/" $1 " -o -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }'`
 
-apk add --no-cache $RUNDEP $RUNDEP2
+apk add --no-cache $RUNDEP $RUNDEP2 ruby-bigdecimal ruby-irb
 
 sudo -u git -H git config --global core.autocrlf input
 sudo -u git -H git config --global gc.auto 0
@@ -89,5 +89,10 @@ mkdir -p /etc/default/
 sudo cp lib/support/init.d/gitlab.default.example /etc/default/gitlab
 
 sed -i 's|/bin/bash|/bin/sh|g' /etc/init.d/gitlab /etc/default/gitlab
+sed -i 's|kill --|kill|g' /etc/init.d/gitlab
+
+# busybox pkill is used even if procps is installed
+rm -f /usr/bin/pkill
+ln -s /bin/pkill /usr/bin/pkill
 
 date
