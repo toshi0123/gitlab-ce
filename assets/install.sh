@@ -76,7 +76,7 @@ apk del --no-cache .builddev
 RUNDEP=`scanelf --needed --nobanner --format '%n#p' --recursive /home/git | tr ',' '\n' | sort -u | awk 'system("[ -e /lib/" $1 " -o -e /usr/lib/" $1 " -o -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }'`
 RUNDEP2=`scanelf --needed --nobanner --format '%n#p' --recursive /usr/lib/ruby | tr ',' '\n' | sort -u | awk 'system("[ -e /lib/" $1 " -o -e /usr/lib/" $1 " -o -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }'`
 
-apk add --no-cache $RUNDEP $RUNDEP2 ruby-bigdecimal ruby-irb
+apk add --no-cache $RUNDEP $RUNDEP2
 
 sudo -u git -H git config --global core.autocrlf input
 sudo -u git -H git config --global gc.auto 0
