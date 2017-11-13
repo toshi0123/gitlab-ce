@@ -54,6 +54,17 @@ make install
 
 cd -
 
+# gitlab-pages
+GITLAB_PAGES_VERSION=$(cat /home/git/gitlab/GITLAB_PAGES_VERSION)
+sudo -u git -H git clone --depth 1 -b v${GITLAB_PAGES_VERSION} https://gitlab.com/gitlab-org/gitlab-pages.git /home/git/gitlab-pages
+
+cd /home/git/gitlab-pages
+make
+make install
+cp -f gitlab-pages /usr/local/bin/
+
+cd -
+
 # gettext
 sudo -u git -H bundle exec rake gettext:pack RAILS_ENV=production > gettext_pack.log 2>&1
 sudo -u git -H bundle exec rake gettext:po_to_json RAILS_ENV=production
