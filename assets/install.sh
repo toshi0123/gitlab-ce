@@ -98,4 +98,8 @@ sed -i 's|kill --|kill|g' /etc/init.d/gitlab
 rm -f /usr/bin/pkill
 ln -s /bin/pkill /usr/bin/pkill
 
+mkdir -p /run/nginx
+rm -f /etc/nginx/conf.d/default.conf
+sudo cp lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf
+
 date
