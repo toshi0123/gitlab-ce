@@ -19,6 +19,30 @@ sudo -u git -H bundle config --local build.gpgme --use-system-libraries
 
 echo "git ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/git
 
+# comment out unnecessary gem 
+cat <<EOF | while read line;do sed -i "/${line}/s/^/#/g" Gemfile;done
+omniauth-auth0
+omniauth-azure-oauth2
+omniauth-cas3
+omniauth-facebook
+omniauth-google-oauth2
+omniauth-oauth2-generic
+omniauth-saml
+omniauth-shibboleth
+omniauth-twitter
+omniauth_crowd
+omniauth-authentiq
+fog-aws
+fog-core
+fog-google
+fog-local
+fog-openstack
+fog-rackspace
+fog-aliyun
+google-api-client
+unf
+EOF
+
 # gitlab
 sudo -u git -H bundle install --system --without development test mysql aws -j$(nproc)
 
