@@ -102,6 +102,16 @@ find /usr/lib/ruby/gems/ -type f -name "*.md" -delete
 find /usr/lib/ruby/gems/ -type f -name "*.rdoc" -delete
 find /usr/lib/ruby/gems/ -type f -name "*.txt" -delete
 
+find /home/git/ -type d -name "test" | xargs rm -rf
+find /home/git/ -type d -name "gen" | xargs rm -rf
+find /home/git/ -type d -name "spec" | xargs rm -rf
+find /home/git/ -type d -name "doc" | xargs rm -rf
+find /home/git/ -type f -name "Rakefile" -delete
+find /home/git/ -type f -name ".[a-z]*" -delete
+find /home/git/ -type f -name "*.md" -delete
+find /home/git/ -type f -name "*.rdoc" -delete
+find /home/git/ -type f -name "*.txt" -delete
+
 rm -f /etc/sudoers.d/git
 
 apk del --no-cache .builddev
