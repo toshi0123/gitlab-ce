@@ -106,7 +106,7 @@ find /home/git/ -type d -name "test" | xargs rm -rf
 find /home/git/ -type d -name "gen" | xargs rm -rf
 find /home/git/ -type d -name "spec" | xargs rm -rf
 find /home/git/ -type d -name "doc" | xargs rm -rf
-find /home/git/ -type f -name "Rakefile" -delete
+#find /home/git/ -type f -name "Rakefile" -delete
 find /home/git/ -type f -name ".[a-z]*" -delete
 find /home/git/ -type f -name "*.md" -delete
 find /home/git/ -type f -name "*.rdoc" -delete
