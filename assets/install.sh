@@ -90,7 +90,7 @@ find /usr/lib/ruby/gems/*/gems/ -type f -name "*.so" -delete
 #find /usr/lib/ruby/gems/ -type d -name "ext" | xargs rm -rf
 find /usr/lib/ruby/gems/ -type d -name "patches" | xargs rm -rf
 find /usr/lib/ruby/gems/ -type d -name "suppressions" | xargs rm -rf
-find /usr/lib/ruby/gems/ -type d -name "tasks" | xargs rm -rf
+#find /usr/lib/ruby/gems/ -type d -name "tasks" | xargs rm -rf
 #find /usr/lib/ruby/gems/ -type d -name "test" | xargs rm -rf
 find /usr/lib/ruby/gems/ -type d -name "gen" | xargs rm -rf
 find /usr/lib/ruby/gems/ -type d -name "spec" | xargs rm -rf
