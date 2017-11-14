@@ -87,7 +87,7 @@ find /usr/lib/ruby/gems/ -type f -name '*.a' | xargs rm -f
 find /home/git/ -type f -name '*.a' | xargs rm -f
 
 find /usr/lib/ruby/gems/ -type f -name "*.so" -delete
-find /usr/lib/ruby/gems/ -type d -name "ext" | xargs rm -rf
+#find /usr/lib/ruby/gems/ -type d -name "ext" | xargs rm -rf
 find /usr/lib/ruby/gems/ -type d -name "patches" | xargs rm -rf
 find /usr/lib/ruby/gems/ -type d -name "suppressions" | xargs rm -rf
 find /usr/lib/ruby/gems/ -type d -name "tasks" | xargs rm -rf
