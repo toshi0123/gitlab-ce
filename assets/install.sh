@@ -93,6 +93,10 @@ find /usr/lib/ruby/gems/*/gems/ -type f -name "*.so" -delete
 
 rm -rf /home/git/gitlab-shell/go /home/git/gitlab-shell/go_build
 
+rm -f /home/git/gitaly/gitaly /home/git/gitaly/gitaly-ssh
+rm -rf /home/git/gitlab-workhorse
+rm -rf /root/.bundle/cache /home/git/.bundle/cache
+
 rm -f /etc/sudoers.d/git
 
 apk del --no-cache .builddev
