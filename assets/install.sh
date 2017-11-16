@@ -88,6 +88,8 @@ find /home/git/ -type f -name '*.a' | xargs rm -f
 
 find /usr/lib/ruby/gems/*/gems/ -type f -name "*.so" -delete
 
+rm -rf /home/git/gitlab-shell/go /home/git/gitlab-shell/go_build
+
 rm -f /etc/sudoers.d/git
 
 apk del --no-cache .builddev
