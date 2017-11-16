@@ -95,6 +95,7 @@ rm -rf /home/git/gitlab-shell/go /home/git/gitlab-shell/go_build
 
 rm -f /home/git/gitaly/gitaly /home/git/gitaly/gitaly-ssh
 rm -rf /home/git/gitlab-workhorse
+sudo -u git -H mkdir -p /home/git/gitlab-workhorse
 rm -rf /root/.bundle/cache /home/git/.bundle/cache
 
 rm -f /etc/sudoers.d/git
@@ -120,6 +121,7 @@ sudo cp lib/support/init.d/gitlab.default.example /etc/default/gitlab
 
 sed -i 's|/bin/bash|/bin/sh|g' /etc/init.d/gitlab /etc/default/gitlab
 sed -i 's|kill --|kill|g' /etc/init.d/gitlab
+sed -i 's|$gitaly_dir/gitaly|gitaly|g' /etc/init.d/gitlab
 
 # busybox pkill is used even if procps is installed
 rm -f /usr/bin/pkill
