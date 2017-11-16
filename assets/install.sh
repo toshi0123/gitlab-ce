@@ -11,17 +11,17 @@ echo "git ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/git
 
 sudo -u git -H echo "install: --no-document" > ~/.gemrc
 
-ash install_gitlab.sh
+ash /home/git/build/install_gitlab.sh
 
-ash install_gitlab-shell.sh
+ash /home/git/build/install_gitlab-shell.sh
 
-ash install_gitlab-workhorse.sh
+ash /home/git/build/install_gitlab-workhorse.sh
 
-ash install_gitaly.sh
+ash /home/git/build/install_gitaly.sh
 
-ash install_assets.sh
+ash /home/git/build/install_assets.sh
 
-ash clean_up.sh
+ash /home/git/build/clean_up.sh
 
 rm -f /etc/sudoers.d/git
 
