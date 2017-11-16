@@ -98,6 +98,11 @@ rm -rf /home/git/gitlab-workhorse
 sudo -u git -H mkdir -p /home/git/gitlab-workhorse
 rm -rf /root/.bundle/cache /home/git/.bundle/cache
 
+find / -type d -name "doc" | xargs rm -rf
+find / -type f -name "*.md" -delete
+find / -type f -name "*.rdoc" -delete
+find / -type f -name "*.log" -delete
+
 rm -f /etc/sudoers.d/git
 
 apk del --no-cache .builddev
