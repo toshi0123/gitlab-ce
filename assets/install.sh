@@ -13,7 +13,7 @@ sudo -u git -H cp config/resque.yml.example config/resque.yml
 apk add --no-cache --virtual .builddev build-base ruby-dev go icu-dev zlib-dev libffi-dev \
   cmake krb5-dev postgresql-dev linux-headers re2-dev libassuan-dev libgpg-error-dev gpgme-dev coreutils yarn
 
-sudo -u git -H echo "install: --no-document" > .gemrc
+sudo -u git -H echo "install: --no-document" > ~/.gemrc
 
 sudo -u git -H bundle config --local build.gpgme --use-system-libraries
 
