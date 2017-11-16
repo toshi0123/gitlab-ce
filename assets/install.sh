@@ -75,12 +75,15 @@ sudo -u git -H bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_
 echo $?
 
 # clean up
+sed -i '/^SHELL/s/bash/sh/' /usr/lib/node_modules/npm/Makefile
+sed -i '/^clean:/s/uninstall//' /usr/lib/node_modules/npm/Makefile
+
+for fn in `find / -type f -name 'Makefile'`;do ( cd `dirname $fn`;make clean );done > make.log 2>&1
+
 sudo -u git -H yarn cache clean
 sudo -u git -H rm -rf tmp/cache/assets
 find /home/git -type d -name '.git' | xargs rm -rf
 find / -type f -name '*.gem' | xargs rm -f
-
-for fn in `find / -type f -name 'Makefile'`;do ( cd `dirname $fn`;make clean );done > make.log 2>&1
 
 find /usr/lib/ruby/gems/ -type f -name '*.o' | xargs rm -f
 find /usr/lib/ruby/gems/ -type f -name '*.a' | xargs rm -f
