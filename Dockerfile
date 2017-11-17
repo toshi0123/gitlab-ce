@@ -9,11 +9,10 @@ ENV LANG=en_US.utf8
 
 COPY assets /home/git/build/
 
-RUN adduser -s /bin/sh -g 'GitLab' -D git; \
+RUN     adduser -s /bin/sh -g 'GitLab' -D git; \
 	chown -R git:git /home/git; \
-	ash /home/git/build/download_gitlab.sh
-
-RUN ash /home/git/build/install.sh
+	ash /home/git/build/download_gitlab.sh && \
+	ash /home/git/build/install.sh
 
 RUN ash /home/git/build/default_setting.sh
 
