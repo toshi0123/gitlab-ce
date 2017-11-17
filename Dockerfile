@@ -21,4 +21,4 @@ COPY docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-EXPOSE 22/tcp 80/tcp 443/tcp
+EXPOSE 80/tcp 443/tcp
