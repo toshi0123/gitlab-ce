@@ -11,6 +11,8 @@ echo "git ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/git
 
 sudo -u git -H echo "install: --no-document" > ~/.gemrc
 
+env
+
 ash /home/git/build/install_gitlab.sh
 
 ash /home/git/build/install_gitlab-shell.sh
