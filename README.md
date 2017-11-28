@@ -3,7 +3,7 @@
 [![Docker Repository on Quay](https://quay.io/repository/toshi0123/gitlab-ce/status "Docker Repository on Quay")](https://quay.io/repository/toshi0123/gitlab-ce)
 
 This image is under developing.  
-Configure files are not stored in any volumes. So if you test this image, you have to back up yourself.  
+Configure files are not stored in any volumes. So if you test this image, you have to backup by yourself.  
 
 This gitlab-ce built from source file.  
 You can check the installation guides as follows.  
