@@ -20,3 +20,5 @@ COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 80/tcp 443/tcp
+
+VOLUME ["/home/git/data"]
