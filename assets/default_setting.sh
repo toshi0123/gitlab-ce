@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -x
-
 cd /home/git/gitlab
 
 sudo -u git -H git config --global core.autocrlf input
@@ -16,15 +14,11 @@ mkdir -p /etc/default/
 sudo cp lib/support/init.d/gitlab.default.example /etc/default/gitlab
 
 # for alpine linux
-sed -i.bak \
+sed -i \
     -e 's|/bin/bash|/bin/sh|g' \
     -e 's|kill --|kill|g' \
     -e 's|$gitaly_dir/gitaly|gitaly|g' \
     /etc/init.d/gitlab /etc/default/gitlab
-
-diff /etc/init.d/gitlab.bak /etc/init.d/gitlab
-diff /etc/default/gitlab.bak /etc/default/gitlab
-rm -f /etc/init.d/gitlab.bak /etc/default/gitlab.bak
 
 # busybox pkill is used even if procps is installed
 rm -f /usr/bin/pkill
