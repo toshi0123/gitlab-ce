@@ -42,7 +42,7 @@ done < configfile_list.txt
 
 if [ -e /home/git/data/config/VERSION ];then
   cd /home/git/gitlab
-  sudo -u git -H bundle exec rake db:migrate RAILS_ENV=production --trace
+  sudo -u git -H bundle exec rake db:migrate RAILS_ENV=production --trace || exit 1
 fi
 
 cp -pf /home/git/gitlab/VERSION /home/git/data/config/
