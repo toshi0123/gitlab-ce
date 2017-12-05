@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -x
+
 prepare_config(){
   [ -e $1 ] || return 1
   local basename=`basename $1`
@@ -47,5 +49,7 @@ cp -pf /home/git/gitlab/VERSION /home/git/data/config/
 
 /etc/init.d/gitlab start || exit 1
 /usr/sbin/nginx
+
+set +x
 
 while [ 0 ];do sleep 3600;done
