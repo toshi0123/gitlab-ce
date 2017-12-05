@@ -45,6 +45,7 @@ cp -pf /home/git/gitlab/lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf.e
 diff_config /etc/nginx/conf.d/gitlab.conf
 
 if [ -e /home/git/data/config/VERSION ];then
+  cd /home/git/gitlab
   sudo -u git -H bundle exec rake db:migrate RAILS_ENV=production --trace
 fi
 
