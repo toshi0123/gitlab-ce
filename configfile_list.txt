@@ -1,0 +1,9 @@
+/home/git/gitlab/config/gitlab.yml
+/home/git/gitlab/config/database.yml
+/home/git/gitlab/config/resque.yml
+/home/git/gitlab/config/secrets.yml
+/home/git/gitlab/config/unicorn.rb
+/home/git/gitlab/config/initializers/rack_attack.rb
+/home/git/gitaly/config.toml
+/home/git/gitlab-shell/config.yml
+/etc/nginx/conf.d/gitlab.conf
