@@ -15,7 +15,7 @@ RUN adduser -s /bin/sh -g 'GitLab' -D git; \
     ash /home/git/build/install.sh && \
     ash /home/git/build/default_setting.sh
 
-COPY docker-entrypoint.sh /
+COPY docker-entrypoint.sh configfile_list.txt /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
