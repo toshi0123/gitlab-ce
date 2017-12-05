@@ -8,6 +8,8 @@ sudo -u git -H git clone --depth 1 -b v${GITLAB_SHELL_VERSION} https://gitlab.co
 
 cd /home/git/gitlab-shell
 
+sudo -u git -H cp /home/git/gitlab-shell/config.yml.example /home/git/gitlab-shell/config.yml
+
 ./bin/compile
 ./bin/install
 
