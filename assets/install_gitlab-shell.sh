@@ -1,7 +1,16 @@
 #!/bin/sh
 
-cd /home/git/gitlab
+#cd /home/git/gitlab
+#sudo -u git -H bundle exec rake gitlab:shell:install RAILS_ENV=production SKIP_STORAGE_VALIDATION=true
 
-sudo -u git -H bundle exec rake gitlab:shell:install RAILS_ENV=production SKIP_STORAGE_VALIDATION=true
+GITLAB_SHELL_VERSION=$(cat /home/git/gitlab/GITLAB_SHELL_VERSION)
+sudo -u git -H git clone --depth 1 -b v${GITLAB_SHELL_VERSION} https://gitlab.com/gitlab-org/gitlab-shell.git /home/git/gitlab-shell
+
+cd /home/git/gitlab-shell
+
+./bin/compile
+./bin/install
+
+cd
 
 rm -rf /home/git/gitlab-shell/go /home/git/gitlab-shell/go_build
