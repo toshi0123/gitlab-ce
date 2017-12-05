@@ -4,7 +4,12 @@ prepare_config(){
   [ -e $1 ] || exit 1
   local basename=`basename $1`
   cp -pf $1.example /home/git/data/config/example
-  sudo -u git -H mv $1 /home/git/data/config/
+  cp -pf $1 /home/git/data/config/
+}
+
+link_config(){
+  local basename=`basename $1`
+  rm -f $1
   ln -s /home/git/data/config/$basename $1
 }
 
@@ -19,30 +24,19 @@ if [ ! -d /home/git/data/config ];then
   
   chown -R git:git /home/git/data/config
   
-  prepare_config /home/git/gitlab/config/gitlab.yml
   cp -pf /home/git/gitlab/config/database.yml.postgresql /home/git/gitlab/config/database.yml.example
-  prepare_config /home/git/gitlab/config/database.yml
-  prepare_config /home/git/gitlab/config/resque.yml
-  prepare_config /home/git/gitlab/config/secrets.yml
-  prepare_config /home/git/gitlab/config/unicorn.rb
-  prepare_config /home/git/gitlab/config/initializers/rack_attack.rb
-  prepare_config /home/git/gitaly/config.toml
-  prepare_config /home/git/gitlab-shell/config.yml
   cp -pf /home/git/gitlab/lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf.example
-  prepare_config /etc/nginx/conf.d/gitlab.conf
+  while read line;do
+    prepare_config $line
+  done < configfile_list.txt
 fi
 
-diff_config /home/git/gitlab/config/gitlab.yml
 cp -pf /home/git/gitlab/config/database.yml.postgresql /home/git/gitlab/config/database.yml.example
-diff_config /home/git/gitlab/config/database.yml
-diff_config /home/git/gitlab/config/resque.yml
-diff_config /home/git/gitlab/config/secrets.yml
-diff_config /home/git/gitlab/config/unicorn.rb
-diff_config /home/git/gitlab/config/initializers/rack_attack.rb
-diff_config /home/git/gitaly/config.toml
-diff_config /home/git/gitlab-shell/config.yml
 cp -pf /home/git/gitlab/lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf.example
-diff_config /etc/nginx/conf.d/gitlab.conf
+while read line;do
+  diff_config $line
+  link_config $line
+done < configfile_list.txt
 
 if [ -e /home/git/data/config/VERSION ];then
   cd /home/git/gitlab
