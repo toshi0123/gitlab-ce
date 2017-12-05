@@ -14,9 +14,11 @@ mkdir -p /etc/default/
 sudo cp lib/support/init.d/gitlab.default.example /etc/default/gitlab
 
 # for alpine linux
-sed -i 's|/bin/bash|/bin/sh|g' /etc/init.d/gitlab /etc/default/gitlab
-sed -i 's|kill --|kill|g' /etc/init.d/gitlab
-sed -i 's|$gitaly_dir/gitaly|gitaly|g' /etc/init.d/gitlab
+sed -i \
+    -e 's|/bin/bash|/bin/sh|g' \
+    -e 's|kill --|kill|g' \
+    -e 's|$gitaly_dir/gitaly|gitaly|g' \
+    /etc/init.d/gitlab /etc/default/gitlab
 
 # busybox pkill is used even if procps is installed
 rm -f /usr/bin/pkill
