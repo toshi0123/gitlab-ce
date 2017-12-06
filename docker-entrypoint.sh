@@ -36,8 +36,6 @@ REDIS_PORT=${REDIS_PORT:-6379}
 GITLAB_SECRETS_DB_KEY_BASE=${GITLAB_SECRETS_DB_KEY_BASE:-default}
 GITLAB_SECRETS_SECRET_KEY_BASE=${GITLAB_SECRETS_SECRET_KEY_BASE:-default}
 GITLAB_SECRETS_OTP_KEY_BASE=${GITLAB_SECRETS_OTP_KEY_BASE:-default}
-GITLAB_SHELL_SECRETS=${GITLAB_SHELL_SECRETS:-default}
-GITLAB_WORKHORSE_SECRETS=${GITLAB_WORKHORSE_SECRETS:-default}
 
 if [ ! -d /home/git/data/config ];then
   mkdir -p /home/git/data/config
@@ -68,8 +66,6 @@ if [ ! -d /home/git/data/config ];then
   -e "s|http://localhost/|http://localhost:8080/|g" \
     /home/git/gitlab-shell/config.yml
   
-  echo "$GITLAB_SHELL_SECRETS" > /home/git/data/config/.gitlab_shell_secret
-  echo "$GITLAB_WORKHORSE_SECRETS" > /home/git/data/config/.gitlab_workhorse_secret
   sed -i \
   -e "s|secret_key_base: .*$|secret_key_base: $GITLAB_SECRETS_SECRET_KEY_BASE|g" \
   -e "s|otp_key_base: .*$|otp_key_base: $GITLAB_SECRETS_OTP_KEY_BASE|g" \
@@ -110,9 +106,15 @@ rm -rf /home/git/gitlab/log
 ln -s /var/log/gitlab /home/git/gitlab/log
 chown git:git /var/log/gitlab
 
-rm -f /home/git/gitlab/.gitlab_shell_secret /home/git/gitlab/.gitlab_workhorse_secret
-ln -s /home/git/data/config/.gitlab_shell_secret /home/git/gitlab/.gitlab_shell_secret
-ln -s /home/git/data/config/.gitlab_workhorse_secret /home/git/gitlab/.gitlab_workhorse_secret
+[ -e /home/git/gitlab/.gitlab_shell_secret ] || ¥
+cat /dev/urandom | tr -dc '0-9a-f' | head -c 16 > /home/git/gitlab/.gitlab_shell_secret
+chown git:git /home/git/gitlab/.gitlab_shell_secret
+chmod 600 /home/git/gitlab/.gitlab_shell_secret
+
+[ -e /home/git/gitlab/.gitlab_workhorse_secret ] || ¥
+cat /dev/urandom | head -c 32 | base64 > /home/git/gitlab/.gitlab_workhorse_secret
+chown git:git /home/git/gitlab/.gitlab_workhorse_secret
+chmod 600 /home/git/gitlab/.gitlab_workhorse_secret
 
 [ -e /home/git/data/tmp/VERSION ] && diff /home/git/data/tmp/VERSION /home/git/gitlab/VERSION
 
