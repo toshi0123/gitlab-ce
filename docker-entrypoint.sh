@@ -106,12 +106,12 @@ rm -rf /home/git/gitlab/log
 ln -s /var/log/gitlab /home/git/gitlab/log
 chown git:git /var/log/gitlab
 
-[ -e /home/git/gitlab/.gitlab_shell_secret ] || ¥
+[ -e /home/git/gitlab/.gitlab_shell_secret ] || \
 cat /dev/urandom | tr -dc '0-9a-f' | head -c 16 > /home/git/gitlab/.gitlab_shell_secret
 chown git:git /home/git/gitlab/.gitlab_shell_secret
 chmod 600 /home/git/gitlab/.gitlab_shell_secret
 
-[ -e /home/git/gitlab/.gitlab_workhorse_secret ] || ¥
+[ -e /home/git/gitlab/.gitlab_workhorse_secret ] || \
 cat /dev/urandom | head -c 32 | base64 > /home/git/gitlab/.gitlab_workhorse_secret
 chown git:git /home/git/gitlab/.gitlab_workhorse_secret
 chmod 600 /home/git/gitlab/.gitlab_workhorse_secret
