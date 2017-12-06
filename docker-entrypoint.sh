@@ -33,6 +33,12 @@ env PGPASSWORD="$DB_PASS" psql -h $DB_HOST -d $DB_NAME -U $DB_USER -c \
 REDIS_HOST=${REDIS_HOST:-gitlab-redis}
 REDIS_PORT=${REDIS_PORT:-6379}
 
+GITLAB_SECRETS_DB_KEY_BASE=${GITLAB_SECRETS_DB_KEY_BASE:-}
+GITLAB_SECRETS_SECRET_KEY_BASE=${GITLAB_SECRETS_SECRET_KEY_BASE:-}
+GITLAB_SECRETS_OTP_KEY_BASE=${GITLAB_SECRETS_OTP_KEY_BASE:-}
+GITLAB_SHELL_SECRETS=${GITLAB_SHELL_SECRETS:-}
+GITLAB_WORKHORSE_SECRETS=${GITLAB_WORKHORSE_SECRETS:-}
+
 if [ ! -d /home/git/data/config ];then
   mkdir -p /home/git/data/config
   mkdir -p /home/git/data/config/example
@@ -61,6 +67,14 @@ if [ ! -d /home/git/data/config ];then
   -e "s|socket:|# socket:|g" \
   -e "s|http://localhost/|http://localhost:8080/|g" \
     /home/git/gitlab-shell/config.yml
+  
+  echo "$GITLAB_SHELL_SECRETS" > /home/git/data/config/.gitlab_shell_secret
+  echo "$GITLAB_WORKHORSE_SECRETS" > /home/git/data/config/.gitlab_workhorse_secret
+  sed -i \
+  -e "s|secret_key_base: .*$|secret_key_base: $GITLAB_SECRETS_SECRET_KEY_BASE|g" \
+  -e "s|otp_key_base: .*$|otp_key_base: $GITLAB_SECRETS_OTP_KEY_BASE|g" \
+  -e "s|db_key_base: .*$|db_key_base: $GITLAB_SECRETS_DB_KEY_BASE|g" \
+    /home/git/gitlab/config/secrets.yml
   
   while read line;do
     prepare_config $line
@@ -95,6 +109,10 @@ ln -s /home/git/data/shared /home/git/gitlab/shared
 rm -rf /home/git/gitlab/log
 ln -s /var/log/gitlab /home/git/gitlab/log
 chown git:git /var/log/gitlab
+
+rm -f /home/git/gitlab/.gitlab_shell_secret /home/git/gitlab/.gitlab_workhorse_secret
+ln -s /home/git/data/config/.gitlab_shell_secret /home/git/gitlab/.gitlab_shell_secret
+ln -s /home/git/data/config/.gitlab_workhorse_secret /home/git/gitlab/.gitlab_workhorse_secret
 
 [ -e /home/git/data/tmp/VERSION ] && diff /home/git/data/tmp/VERSION /home/git/gitlab/VERSION
 
