@@ -58,6 +58,7 @@ rm -rf /home/git/gitlab/shared
 ln -s /home/git/data/shared /home/git/gitlab/shared
 rm -rf /home/git/gitlab/log
 ln -s /var/log/gitlab /home/git/gitlab/log
+chown git:git /var/log/gitlab
 
 if [ -e /home/git/data/config/VERSION ];then
   cd /home/git/gitlab
