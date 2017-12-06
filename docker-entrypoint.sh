@@ -23,7 +23,6 @@ diff_config(){
 if [ ! -d /home/git/data/config ];then
   mkdir -p /home/git/data/config
   mkdir -p /home/git/data/config/example
-  
   chown -R git:git /home/git/data/config
   
   cp -pf /home/git/gitlab/config/database.yml.postgresql /home/git/gitlab/config/database.yml.example
@@ -39,6 +38,26 @@ while read line;do
   diff_config $line
   link_config $line
 done < configfile_list.txt
+
+mkdir -p /home/git/data/.ssh
+mkdir -p /home/git/data/repositories
+mkdir -p /home/git/data/uploads
+mkdir -p /home/git/data/builds
+mkdir -p /home/git/data/backups
+chown git:git /home/git/data/.ssh /home/git/data/repositories /home/git/data/uploads /home/git/data/builds /home/git/data/backups
+mkdir -p /home/git/data/shared/artifacts/tmp/cache /home/git/data/shared/artifacts/tmp/uploads
+mkdir -p /home/git/data/shared/lfs-objects /home/git/data/shared/pages
+mkdir -p /home/git/data/shared/cache/archive
+chown -R /home/git/data/shared
+
+ln -s /home/git/data/uploads /home/git/gitlab/public/uploads
+rm -rf /home/git/gitlab/builds
+ln -s /home/git/data/builds /home/git/gitlab/builds
+ln -s /home/git/data/backups /home/git/gitlab/tmp/backups
+rm -rf /home/git/gitlab/shared
+ln -s /home/git/data/shared /home/git/gitlab/shared
+rm -rf /home/git/gitlab/log
+ln -s /var/log/gitlab /home/git/gitlab/log
 
 if [ -e /home/git/data/config/VERSION ];then
   cd /home/git/gitlab
