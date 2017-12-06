@@ -27,3 +27,13 @@ ln -s /bin/pkill /usr/bin/pkill
 mkdir -p /run/nginx
 rm -f /etc/nginx/conf.d/default.conf
 sudo cp lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf
+
+# default settings of data volume
+sed -i 's|/home/git/.ssh/authorized_keys|/home/git/data/.ssh/authorized_keys|g' /home/git/gitlab-shell/config.yml
+sed -i '/^path/s|/home/git/repositories|/home/git/data/repositories|g' /home/git/gitaly/config.toml
+sed -i \
+-e "/^  repositories:/,/^  backup:/ s|path: /home/git/repositories/|path: /home/git/data/repositories/|" \
+-e "/^  gitlab_shell:/,/^  workhorse:/ s|# secret_file: /home/git/gitlab/.gitlab_shell_secret|secret_file: /home/git/data/config/.gitlab_shell_secret|" \
+-e "/^  workhorse:/,/^  git:/ s|# secret_file: /home/git/gitlab/.gitlab_workhorse_secret|secret_file: /home/git/data/config/.gitlab_workhorse_secret|" \
+ config/gitlab.yml
+ 
