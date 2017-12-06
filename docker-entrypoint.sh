@@ -48,7 +48,7 @@ chown git:git /home/git/data/.ssh /home/git/data/repositories /home/git/data/upl
 mkdir -p /home/git/data/shared/artifacts/tmp/cache /home/git/data/shared/artifacts/tmp/uploads
 mkdir -p /home/git/data/shared/lfs-objects /home/git/data/shared/pages
 mkdir -p /home/git/data/shared/cache/archive
-chown -R /home/git/data/shared
+chown -R git:git /home/git/data/shared
 
 ln -s /home/git/data/uploads /home/git/gitlab/public/uploads
 rm -rf /home/git/gitlab/builds
