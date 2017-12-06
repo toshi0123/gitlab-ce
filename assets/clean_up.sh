@@ -23,3 +23,5 @@ rm -rf /root/.bundle/cache /home/git/.bundle/cache
 
 find / -type f -name "*.rdoc" -delete
 find / -type f -name "*.log" -delete
+
+rm -f /home/git/gitlab/.gitlab_shell_secret /home/git/gitlab/.gitlab_workhorse_secret
