@@ -54,7 +54,11 @@ if [ ! -d /home/git/data/config ];then
     /home/git/gitlab/config/resque.yml
   
   sed -i \
-  -e "s|host: .*$|host: $REDIS_HOST|g" \
+  -e "s|bin: .*$|bin: ''|g" \
+  -e "s|\(# \)*host: .*$|host: $REDIS_HOST|g" \
+  -e "s|\(# \)*port: .*$|port: $REDIS_PORT|g" \
+  -e "s|database:|# database:|g" \
+  -e "s|socket:|# socket:|g" \
   -e "s|http://localhost/|http://localhost:8080/|g" \
     /home/git/gitlab-shell/config.yml
   
@@ -75,7 +79,8 @@ mkdir -p /home/git/data/repositories
 mkdir -p /home/git/data/uploads
 mkdir -p /home/git/data/builds
 mkdir -p /home/git/data/backups
-chown git:git /home/git/data/.ssh /home/git/data/repositories /home/git/data/uploads /home/git/data/builds /home/git/data/backups
+mkdir -p /home/git/data/tmp
+chown git:git /home/git/data/.ssh /home/git/data/repositories /home/git/data/uploads /home/git/data/builds /home/git/data/backups /home/git/data/tmp
 mkdir -p /home/git/data/shared/artifacts/tmp/cache /home/git/data/shared/artifacts/tmp/uploads
 mkdir -p /home/git/data/shared/lfs-objects /home/git/data/shared/pages
 mkdir -p /home/git/data/shared/cache/archive
