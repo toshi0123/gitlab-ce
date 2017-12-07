@@ -3,7 +3,7 @@ FROM alpine:edge
 RUN apk upgrade --no-cache && \
     apk add --no-cache \
     vim sudo git ruby ruby-bundler ruby-rdoc nodejs postgresql-client \
-    ruby-rake procps ruby-bigdecimal ruby-irb nginx
+    ruby-rake procps ruby-bigdecimal ruby-irb nginx patch
 
 ENV LANG=en_US.utf8
 
