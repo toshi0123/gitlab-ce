@@ -118,10 +118,11 @@ ln -s /var/log/gitlab /home/git/gitlab/log
 chown git:git /var/log/gitlab
 
 if [ "$GITLAB_HTTPS" == "true" ];then
-  [ -e /home/git/data/config/gilab.crt -a -e /home/git/data/config/gilab.key ] || \
-    { echo "ERROR: You have to prepare gitlab.crt and gitlab.key files into data/config/.";exit 1; }
-  ln -s /home/git/data/config/gilab.crt /etc/nginx/ssl/gilab.crt
-  ln -s /home/git/data/config/gilab.key /etc/nginx/ssl/gilab.key
+  [ -e /home/git/data/gilab.crt -a -e /home/git/data/gilab.key ] || \
+    { echo "ERROR: You have to prepare gitlab.crt and gitlab.key files into data/.";exit 1; }
+  mkdir -p /etc/nginx/ssl
+  ln -s /home/git/data/gilab.crt /etc/nginx/ssl/gilab.crt
+  ln -s /home/git/data/gilab.key /etc/nginx/ssl/gilab.key
 fi
 
 [ -e /home/git/gitlab/.gitlab_shell_secret ] || \
