@@ -18,7 +18,7 @@ link_config(){
 diff_config(){
   local basename=`basename $1`
   if [ -e /home/git/data/config/example/$basename.example ];then
-    diff /home/git/data/config/example/$basename.example $1.example | patch -N $1 || exit 1
+    diff -U0 /home/git/data/config/example/$basename.example $1.example | patch -N $1 || { cat $1.rej;exit 1; }
   fi
   cp -pf $1.example /home/git/data/config/example
 }
