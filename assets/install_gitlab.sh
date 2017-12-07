@@ -8,6 +8,4 @@ sudo -u git -H cp config/resque.yml.example config/resque.yml
 
 sudo -u git -H bundle config --local build.gpgme --use-system-libraries
 
-sudo -u git -H bundle install --system --without development test mysql aws kerberos -j$(nproc) || exit 1
-
-exit 0
+sudo -u git -H bundle install --system --without development test mysql aws kerberos -j$(nproc)
