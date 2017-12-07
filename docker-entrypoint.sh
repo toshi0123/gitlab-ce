@@ -18,6 +18,7 @@ link_config(){
 diff_config(){
   local basename=`basename $1`
   diff /home/git/data/config/example/$basename.example $1.example | patch -N $1 || exit 1
+  cp -pf $1.example /home/git/data/config/example
 }
 
 # set default
