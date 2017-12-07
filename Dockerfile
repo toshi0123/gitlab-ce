@@ -12,7 +12,7 @@ COPY assets /home/git/build/
 RUN adduser -s /bin/sh -g 'GitLab' -D git; \
     chown -R git:git /home/git; \
     ash /home/git/build/download_gitlab.sh && \
-    ash /home/git/build/install.sh && \
+    ash -e /home/git/build/install.sh && \
     ash /home/git/build/default_setting.sh
 
 COPY docker-entrypoint.sh configfile_list.txt /
