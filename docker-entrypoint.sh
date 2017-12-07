@@ -40,13 +40,21 @@ GITLAB_SECRETS_DB_KEY_BASE=${GITLAB_SECRETS_DB_KEY_BASE:-default}
 GITLAB_SECRETS_SECRET_KEY_BASE=${GITLAB_SECRETS_SECRET_KEY_BASE:-default}
 GITLAB_SECRETS_OTP_KEY_BASE=${GITLAB_SECRETS_OTP_KEY_BASE:-default}
 
+GITLAB_HTTPS=${GITLAB_HTTPS:-false}
+
 if [ ! -d /home/git/data/config ];then
   mkdir -p /home/git/data/config
   mkdir -p /home/git/data/config/example
   chown -R git:git /home/git/data/config
   
   cp -pf /home/git/gitlab/config/database.yml.postgresql /home/git/gitlab/config/database.yml.example
-  cp -pf /home/git/gitlab/lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf.example
+  if [ "$GITLAB_HTTPS" == "true" ];then
+    cp -pf /home/git/gitlab/lib/support/nginx/gitlab-ssl /etc/nginx/conf.d/gitlab.conf
+    cp -pf /home/git/gitlab/lib/support/nginx/gitlab-ssl /etc/nginx/conf.d/gitlab.conf.example
+  else
+    cp -pf /home/git/gitlab/lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf
+    cp -pf /home/git/gitlab/lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf.example
+  fi
   
   sed -i \
   -e "s|\(# \)*database:.*$|database: $DB_NAME|g" \
