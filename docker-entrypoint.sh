@@ -46,11 +46,11 @@ if [ ! -d /home/git/data/config ];then
   cp -pf /home/git/gitlab/lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf.example
   
   sed -i \
-  -e "s|database: .*$|database: $DB_NAME|g" \
-  -e "s|username: .*$|username: $DB_USER|g" \
-  -e "s|password: .*$|password: $DB_PASS|g" \
-  -e "s|host: .*$|host: $DB_HOST|g" \
-  -e "s|port: .*$|port: $DB_PORT|g" \
+  -e "s|\(# \)*database:.*$|database: $DB_NAME|g" \
+  -e "s|\(# \)*username:.*$|username: $DB_USER|g" \
+  -e "s|\(# \)*password:.*$|password: $DB_PASS|g" \
+  -e "s|\(# \)*host:.*$|host: $DB_HOST|g" \
+  -e "s|\(# \)*port:.*$|port: $DB_PORT|g" \
     /home/git/gitlab/config/database.yml
   
   sed -i \
