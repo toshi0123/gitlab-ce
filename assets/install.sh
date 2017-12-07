@@ -13,17 +13,17 @@ sudo -u git -H echo "install: --no-document" > ~/.gemrc
 
 env
 
-ash -e /home/git/build/install_gitlab.sh
+ash -ex /home/git/build/install_gitlab.sh
 
-ash -e /home/git/build/install_gitlab-shell.sh
+ash -ex /home/git/build/install_gitlab-shell.sh
 
-ash -e /home/git/build/install_gitlab-workhorse.sh
+ash -ex /home/git/build/install_gitlab-workhorse.sh
 
-ash -e /home/git/build/install_gitaly.sh
+ash -ex /home/git/build/install_gitaly.sh
 
-ash -e /home/git/build/install_assets.sh
+ash -ex /home/git/build/install_assets.sh
 
-ash -e /home/git/build/clean_up.sh
+ash -ex /home/git/build/clean_up.sh
 
 rm -f /etc/sudoers.d/git
 
