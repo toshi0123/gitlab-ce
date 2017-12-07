@@ -17,8 +17,9 @@ link_config(){
 
 diff_config(){
   local basename=`basename $1`
+  local conf_filename="/home/git/data/config/$basename"
   if [ -e /home/git/data/config/example/$basename.example ];then
-    diff /home/git/data/config/example/$basename.example $1.example | patch -N $1 || exit 1
+    diff -U0 /home/git/data/config/example/$basename.example $1.example | patch -N $conf_filename || { cat $conf_filename.rej;exit 1; }
   fi
   cp -pf $1.example /home/git/data/config/example
 }
@@ -40,13 +41,21 @@ GITLAB_SECRETS_DB_KEY_BASE=${GITLAB_SECRETS_DB_KEY_BASE:-default}
 GITLAB_SECRETS_SECRET_KEY_BASE=${GITLAB_SECRETS_SECRET_KEY_BASE:-default}
 GITLAB_SECRETS_OTP_KEY_BASE=${GITLAB_SECRETS_OTP_KEY_BASE:-default}
 
+GITLAB_HTTPS=${GITLAB_HTTPS:-false}
+
 if [ ! -d /home/git/data/config ];then
   mkdir -p /home/git/data/config
   mkdir -p /home/git/data/config/example
   chown -R git:git /home/git/data/config
   
   cp -pf /home/git/gitlab/config/database.yml.postgresql /home/git/gitlab/config/database.yml.example
-  cp -pf /home/git/gitlab/lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf.example
+  if [ "$GITLAB_HTTPS" == "true" ];then
+    cp -pf /home/git/gitlab/lib/support/nginx/gitlab-ssl /etc/nginx/conf.d/gitlab.conf
+    cp -pf /home/git/gitlab/lib/support/nginx/gitlab-ssl /etc/nginx/conf.d/gitlab.conf.example
+  else
+    cp -pf /home/git/gitlab/lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf
+    cp -pf /home/git/gitlab/lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf.example
+  fi
   
   sed -i \
   -e "s|\(# \)*database:.*$|database: $DB_NAME|g" \
@@ -109,6 +118,14 @@ rm -rf /home/git/gitlab/log
 ln -s /var/log/gitlab /home/git/gitlab/log
 chown git:git /var/log/gitlab
 
+if [ "$GITLAB_HTTPS" == "true" ];then
+  [ -e /home/git/data/gilab.crt -a -e /home/git/data/gilab.key ] || \
+    { echo "ERROR: You have to prepare gitlab.crt and gitlab.key files into data/.";exit 1; }
+  mkdir -p /etc/nginx/ssl
+  ln -s /home/git/data/gilab.crt /etc/nginx/ssl/gilab.crt
+  ln -s /home/git/data/gilab.key /etc/nginx/ssl/gilab.key
+fi
+
 [ -e /home/git/gitlab/.gitlab_shell_secret ] || \
 cat /dev/urandom | tr -dc '0-9a-f' | head -c 16 > /home/git/gitlab/.gitlab_shell_secret
 chown git:git /home/git/gitlab/.gitlab_shell_secret
@@ -125,8 +142,11 @@ env PGPASSWORD="$DB_PASS" psql -h $DB_HOST -d $DB_NAME -U $DB_USER -c \
 
 cp -pf /home/git/gitlab/VERSION /home/git/data/tmp/
 
+/usr/sbin/nginx -t || exit 1
+
 /etc/init.d/gitlab start && /etc/init.d/gitlab status || exit 1
-/usr/sbin/nginx
+
+/usr/sbin/nginx || exit 1
 
 set +x
 
