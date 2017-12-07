@@ -17,7 +17,7 @@ link_config(){
 
 diff_config(){
   local basename=`basename $1`
-  diff $1.example /home/git/data/config/example/$basename.example || exit 1
+  diff /home/git/data/config/example/$basename.example $1.example || exit 1
 }
 
 # set default
