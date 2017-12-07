@@ -117,6 +117,13 @@ rm -rf /home/git/gitlab/log
 ln -s /var/log/gitlab /home/git/gitlab/log
 chown git:git /var/log/gitlab
 
+if [ "$GITLAB_HTTPS" == "true" ];then
+  [ -e /home/git/data/config/gilab.crt -a -e /home/git/data/config/gilab.key ] || \
+    { echo "ERROR: You have to prepare gitlab.crt and gitlab.key files into data/config/.";exit 1; }
+  ln -s /home/git/data/config/gilab.crt /etc/nginx/ssl/gilab.crt
+  ln -s /home/git/data/config/gilab.key /etc/nginx/ssl/gilab.key
+fi
+
 [ -e /home/git/gitlab/.gitlab_shell_secret ] || \
 cat /dev/urandom | tr -dc '0-9a-f' | head -c 16 > /home/git/gitlab/.gitlab_shell_secret
 chown git:git /home/git/gitlab/.gitlab_shell_secret
@@ -134,6 +141,7 @@ env PGPASSWORD="$DB_PASS" psql -h $DB_HOST -d $DB_NAME -U $DB_USER -c \
 cp -pf /home/git/gitlab/VERSION /home/git/data/tmp/
 
 /etc/init.d/gitlab start && /etc/init.d/gitlab status || exit 1
+/usr/sbin/nginx -t || exit 1
 /usr/sbin/nginx
 
 set +x
