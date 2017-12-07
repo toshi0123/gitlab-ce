@@ -141,9 +141,11 @@ env PGPASSWORD="$DB_PASS" psql -h $DB_HOST -d $DB_NAME -U $DB_USER -c \
 
 cp -pf /home/git/gitlab/VERSION /home/git/data/tmp/
 
-/etc/init.d/gitlab start && /etc/init.d/gitlab status || exit 1
 /usr/sbin/nginx -t || exit 1
-/usr/sbin/nginx
+
+/etc/init.d/gitlab start && /etc/init.d/gitlab status || exit 1
+
+/usr/sbin/nginx || exit 1
 
 set +x
 
