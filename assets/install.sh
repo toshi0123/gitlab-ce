@@ -23,7 +23,7 @@ ash -ex /home/git/build/install_gitaly.sh
 
 ash -ex /home/git/build/install_assets.sh
 
-ash -ex /home/git/build/clean_up.sh
+ash -x /home/git/build/clean_up.sh
 
 rm -f /etc/sudoers.d/git
 
