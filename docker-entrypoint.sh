@@ -17,7 +17,10 @@ link_config(){
 
 diff_config(){
   local basename=`basename $1`
-  diff $1.example /home/git/data/config/example/$basename.example || exit 1
+  if [ -e /home/git/data/config/example/$basename.example ];then
+    diff /home/git/data/config/example/$basename.example $1.example | patch -N $1 || exit 1
+  fi
+  cp -pf $1.example /home/git/data/config/example
 }
 
 # set default
@@ -46,11 +49,11 @@ if [ ! -d /home/git/data/config ];then
   cp -pf /home/git/gitlab/lib/support/nginx/gitlab /etc/nginx/conf.d/gitlab.conf.example
   
   sed -i \
-  -e "s|database: .*$|database: $DB_NAME|g" \
-  -e "s|username: .*$|username: $DB_USER|g" \
-  -e "s|password: .*$|password: $DB_PASS|g" \
-  -e "s|host: .*$|host: $DB_HOST|g" \
-  -e "s|port: .*$|port: $DB_PORT|g" \
+  -e "s|\(# \)*database:.*$|database: $DB_NAME|g" \
+  -e "s|\(# \)*username:.*$|username: $DB_USER|g" \
+  -e "s|\(# \)*password:.*$|password: $DB_PASS|g" \
+  -e "s|\(# \)*host:.*$|host: $DB_HOST|g" \
+  -e "s|\(# \)*port:.*$|port: $DB_PORT|g" \
     /home/git/gitlab/config/database.yml
   
   sed -i \
