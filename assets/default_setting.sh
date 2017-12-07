@@ -26,6 +26,7 @@ ln -s /bin/pkill /usr/bin/pkill
 
 mkdir -p /run/nginx
 rm -f /etc/nginx/conf.d/default.conf
+sed -i 's/ssl_session_cache/#ssl_session_cache/' /etc/nginx/nginx.conf
 
 # default settings of data volume
 sed -i 's|/home/git/.ssh/authorized_keys|/home/git/data/.ssh/authorized_keys|g' /home/git/gitlab-shell/config.yml
