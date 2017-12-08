@@ -7,6 +7,8 @@ RUN apk upgrade --no-cache && \
 
 ENV LANG=en_US.utf8
 
+ENV TAG=v9.5.10
+
 COPY assets /home/git/build/
 
 RUN adduser -s /bin/sh -g 'GitLab' -D git; \
