@@ -108,9 +108,11 @@ mkdir -p /home/git/data/shared/lfs-objects /home/git/data/shared/pages
 mkdir -p /home/git/data/shared/cache/archive
 chown -R git:git /home/git/data/shared
 
+rm -f /home/git/gitlab/public/uploads
 ln -s /home/git/data/uploads /home/git/gitlab/public/uploads
 rm -rf /home/git/gitlab/builds
 ln -s /home/git/data/builds /home/git/gitlab/builds
+rm -f /home/git/gitlab/tmp/backups
 ln -s /home/git/data/backups /home/git/gitlab/tmp/backups
 rm -rf /home/git/gitlab/shared
 ln -s /home/git/data/shared /home/git/gitlab/shared
