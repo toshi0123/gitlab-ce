@@ -150,4 +150,11 @@ cp -pf /home/git/gitlab/VERSION /home/git/data/tmp/
 
 set +x
 
-while [ 0 ];do sleep 3600;done
+trap 'pkill nginx;/etc/init.d/gitlab stop;exit 0' 15
+
+while [ 0 ]
+do
+  sleep 365d &
+  wait
+  pkill sleep
+done
