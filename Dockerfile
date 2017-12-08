@@ -3,9 +3,11 @@ FROM alpine:edge
 RUN apk upgrade --no-cache && \
     apk add --no-cache \
     vim sudo git ruby ruby-bundler ruby-rdoc nodejs postgresql-client \
-    ruby-rake procps ruby-bigdecimal ruby-irb nginx patch
+    ruby-rake procps ruby-bigdecimal ruby-irb nginx patch python2
 
 ENV LANG=en_US.utf8
+
+ENV TAG=v9.5.10
 
 COPY assets /home/git/build/
 
