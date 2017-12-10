@@ -20,7 +20,7 @@ sed -i \
     -e 's|$gitaly_dir/gitaly|gitaly|g' \
     /etc/init.d/gitlab /etc/default/gitlab
 
-# busybox pkill is used even if procps is installed
+# busybox pkill is used even if procps was installed
 rm -f /usr/bin/pkill
 ln -s /bin/pkill /usr/bin/pkill
 
@@ -31,7 +31,6 @@ sed -i 's/ssl_session_cache/#ssl_session_cache/' /etc/nginx/nginx.conf
 # default settings of data volume
 sed -i 's|/home/git/.ssh/authorized_keys|/home/git/data/.ssh/authorized_keys|g' /home/git/gitlab-shell/config.yml
 sed -i '/^path/s|/home/git/repositories|/home/git/data/repositories|g' /home/git/gitaly/config.toml
-sed -i \
--e "/^  repositories:/,/^  backup:/ s|path: /home/git/repositories/|path: /home/git/data/repositories/|" \
- config/gitlab.yml
- 
+sed -i "/^  repositories:/,/^  backup:/ s|path: /home/git/repositories/|path: /home/git/data/repositories/|" config/gitlab.yml
+
+chmod 755 /home/git/assets/runtime/docker-entrypoint.sh

@@ -3,7 +3,7 @@
 cd /home/git
 
 [ -z "$TAG" ] && \
-TAG=`git ls-remote -t https://gitlab.com/gitlab-org/gitlab-ce.git | grep -v -e '\^{}' -e 'rc[0-9]*' -e 'pre' | grep -o 'v10\..*$' | tail -1`
+TAG=`git ls-remote -t https://gitlab.com/gitlab-org/gitlab-ce.git | grep -v -e '\^{}' -e 'rc[0-9]*' -e 'pre' | grep -o 'v[0-9][0-9]\..*$' | tail -1`
 
 echo "Downloading gitlab ${TAG}"
 
