@@ -10,7 +10,6 @@ for fn in `find / -type f -name 'Makefile'`;do ( cd `dirname $fn`;make clean );d
 sudo -u git -H yarn cache clean
 sudo -u git -H rm -rf tmp/cache/assets
 
-#find /home/git -type d -name '.git' | xargs rm -rf
 find / -type f -name '*.gem' | xargs rm -f
 
 find /usr/lib/ruby/gems/ -type f -name '*.o' | xargs rm -f
