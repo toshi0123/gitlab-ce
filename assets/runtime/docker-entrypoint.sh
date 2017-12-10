@@ -16,7 +16,7 @@ env PGPASSWORD="$DB_PASS" psql -h $DB_HOST -d $DB_NAME -U $DB_USER -c \
 "SELECT true AS enabled FROM pg_available_extensions WHERE name = 'pg_trgm' AND installed_version IS NOT NULL;" || exit 1
 
 # Initialize on first run
-if [ -e /etc/gitlab/gitlab.yml ];then
+if [ ! -e /etc/gitlab/gitlab.yml ];then
   . /home/git/assets/runtime/prepare_config.sh
 fi
 
