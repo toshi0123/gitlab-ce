@@ -11,7 +11,9 @@ RUN apk upgrade --no-cache && \
       tzdata \
       procps \
       nginx \
-      patch
+      patch \
+      dcron \
+      logrotate
 
 COPY assets /home/git/assets/
 
