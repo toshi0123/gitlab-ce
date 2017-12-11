@@ -13,10 +13,14 @@ uploads
 builds
 backups
 tmp
+shared
+shared/artifacts
+shared/artifacts/tmp
 shared/artifacts/tmp/cache
 shared/artifacts/tmp/uploads
 shared/lfs-objects
 shared/pages
+shared/cache
 shared/cache/archive
 EOF
 
