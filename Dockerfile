@@ -25,4 +25,4 @@ ENTRYPOINT ["/home/git/assets/runtime/docker-entrypoint.sh"]
 
 EXPOSE 80/tcp 443/tcp
 
-VOLUME ["/home/git/data","/var/log/gitlab","/etc/gitlab/"]
+VOLUME ["/home/git/data","/var/log","/etc/gitlab/"]
