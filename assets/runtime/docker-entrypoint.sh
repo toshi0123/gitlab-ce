@@ -37,6 +37,8 @@ cp -pf /home/git/gitlab/VERSION /home/git/data/tmp/
 
 /usr/sbin/nginx || exit 1
 
+/usr/sbin/crond -L /var/log/crond.log
+
 # Wait for trap
 set +x
 
