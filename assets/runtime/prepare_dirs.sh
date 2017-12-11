@@ -36,3 +36,5 @@ rm -rf /home/git/gitlab/log
 mkdir -p /var/log/gitlab
 ln -s /var/log/gitlab /home/git/gitlab/log
 chown git:git /var/log/gitlab
+
+mkdir -p /var/log/nginx
