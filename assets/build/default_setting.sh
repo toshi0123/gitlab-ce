@@ -32,3 +32,43 @@ sed -i 's/ssl_session_cache/#ssl_session_cache/' /etc/nginx/nginx.conf
 sed -i 's|/home/git/.ssh/authorized_keys|/home/git/data/.ssh/authorized_keys|g' /home/git/gitlab-shell/config.yml
 sed -i '/^path/s|/home/git/repositories|/home/git/data/repositories|g' /home/git/gitaly/config.toml
 sed -i "/^  repositories:/,/^  backup:/ s|path: /home/git/repositories/|path: /home/git/data/repositories/|" config/gitlab.yml
+
+# default log rotate settings
+cat <<EOF > /etc/logrotate.d/gitlab
+/var/log/gitlab/*.log {
+  weekly
+  missingok
+  rotate 52
+  compress
+  delaycompress
+  notifempty
+  copytruncate
+  dateext
+}
+EOF
+
+cat <<EOF > /etc/logrotate.d/nginx
+/var/log/nginx/*.log {
+  weekly
+  missingok
+  rotate 52
+  compress
+  delaycompress
+  notifempty
+  copytruncate
+  dateext
+}
+EOF
+
+cat <<EOF > /etc/logrotate.d/crond
+/var/log/crond.log {
+  weekly
+  missingok
+  rotate 52
+  compress
+  delaycompress
+  notifempty
+  copytruncate
+  dateext
+}
+EOF

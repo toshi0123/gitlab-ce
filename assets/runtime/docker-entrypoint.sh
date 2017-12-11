@@ -20,11 +20,11 @@ if [ ! -e /etc/gitlab/gitlab.yml ];then
   . /home/git/assets/runtime/prepare_config.sh
 fi
 
-# Check for updated config and make link file for it
-. /home/git/assets/runtime/check_config.sh
-
 # Prepare directories
 . /home/git/assets/runtime/prepare_dirs.sh
+
+# Check for updated config and make link file for it
+. /home/git/assets/runtime/check_config.sh
 
 # Initialize or migrate db
 . /home/git/assets/runtime/prepare_database.sh
@@ -37,10 +37,12 @@ cp -pf /home/git/gitlab/VERSION /home/git/data/tmp/
 
 /usr/sbin/nginx || exit 1
 
+/usr/sbin/crond -L /var/log/crond.log
+
 # Wait for trap
 set +x
 
-trap 'pkill nginx;/etc/init.d/gitlab stop;exit 0' 15
+trap 'pkill nginx;/etc/init.d/gitlab stop;pkill crond;exit 0' 15
 
 while [ 0 ]
 do

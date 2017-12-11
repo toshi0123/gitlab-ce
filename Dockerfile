@@ -11,7 +11,9 @@ RUN apk upgrade --no-cache && \
       tzdata \
       procps \
       nginx \
-      patch
+      patch \
+      dcron \
+      logrotate
 
 COPY assets /home/git/assets/
 
@@ -23,4 +25,4 @@ ENTRYPOINT ["/home/git/assets/runtime/docker-entrypoint.sh"]
 
 EXPOSE 80/tcp 443/tcp
 
-VOLUME ["/home/git/data","/var/log/gitlab","/etc/gitlab/"]
+VOLUME ["/home/git/data","/var/log","/etc/gitlab/"]
