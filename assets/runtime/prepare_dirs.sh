@@ -33,5 +33,6 @@ rm -rf /home/git/gitlab/shared
 ln -s /home/git/data/shared /home/git/gitlab/shared
 
 rm -rf /home/git/gitlab/log
+mkdir -p /var/log/gitlab
 ln -s /var/log/gitlab /home/git/gitlab/log
 chown git:git /var/log/gitlab
