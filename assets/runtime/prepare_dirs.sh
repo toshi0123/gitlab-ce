@@ -13,10 +13,14 @@ uploads
 builds
 backups
 tmp
+shared
+shared/artifacts
+shared/artifacts/tmp
 shared/artifacts/tmp/cache
 shared/artifacts/tmp/uploads
 shared/lfs-objects
 shared/pages
+shared/cache
 shared/cache/archive
 EOF
 
@@ -33,5 +37,8 @@ rm -rf /home/git/gitlab/shared
 ln -s /home/git/data/shared /home/git/gitlab/shared
 
 rm -rf /home/git/gitlab/log
+mkdir -p /var/log/gitlab
 ln -s /var/log/gitlab /home/git/gitlab/log
 chown git:git /var/log/gitlab
+
+mkdir -p /var/log/nginx
