@@ -59,3 +59,16 @@ cat <<EOF > /etc/logrotate.d/nginx
   dateext
 }
 EOF
+
+cat <<EOF > /etc/logrotate.d/crond
+/var/log/crond.log {
+  weekly
+  missingok
+  rotate 52
+  compress
+  delaycompress
+  notifempty
+  copytruncate
+  dateext
+}
+EOF
