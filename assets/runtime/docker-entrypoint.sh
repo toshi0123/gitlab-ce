@@ -20,11 +20,11 @@ if [ ! -e /etc/gitlab/gitlab.yml ];then
   . /home/git/assets/runtime/prepare_config.sh
 fi
 
-# Check for updated config and make link file for it
-. /home/git/assets/runtime/check_config.sh
-
 # Prepare directories
 . /home/git/assets/runtime/prepare_dirs.sh
+
+# Check for updated config and make link file for it
+. /home/git/assets/runtime/check_config.sh
 
 # Initialize or migrate db
 . /home/git/assets/runtime/prepare_database.sh
