@@ -34,8 +34,21 @@ sed -i '/^path/s|/home/git/repositories|/home/git/data/repositories|g' /home/git
 sed -i "/^  repositories:/,/^  backup:/ s|path: /home/git/repositories/|path: /home/git/data/repositories/|" config/gitlab.yml
 
 # default log rotate settings
-cat > /etc/logrotate.d/gitlab <<EOF
+cat <<EOF > /etc/logrotate.d/gitlab
 /var/log/gitlab/*.log {
+  weekly
+  missingok
+  rotate 52
+  compress
+  delaycompress
+  notifempty
+  copytruncate
+  dateext
+}
+EOF
+
+cat <<EOF > /etc/logrotate.d/nginx
+/var/log/nginx/*.log {
   weekly
   missingok
   rotate 52
