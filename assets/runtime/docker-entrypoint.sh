@@ -42,7 +42,7 @@ cp -pf /home/git/gitlab/VERSION /home/git/data/tmp/
 # Wait for trap
 set +x
 
-trap 'pkill nginx;/etc/init.d/gitlab stop;exit 0' 15
+trap 'pkill nginx;/etc/init.d/gitlab stop;pkill crond;exit 0' 15
 
 while [ 0 ]
 do
