@@ -1,11 +1,11 @@
 #!/bin/sh
 
 if [ "$GITLAB_HTTPS" == "true" ];then
-  [ -e /etc/gitlab/gilab.crt -a -e /etc/gitlab/gilab.key ] || \
+  [ -e /etc/gitlab/gitlab.crt -a -e /etc/gitlab/gitlab.key ] || \
     { echo "ERROR: You have to prepare gitlab.crt and gitlab.key files into config directory.";exit 1; }
   mkdir -p /etc/nginx/ssl
-  ln -s /etc/gitlab/gilab.crt /etc/nginx/ssl/gilab.crt
-  ln -s /etc/gitlab/gilab.key /etc/nginx/ssl/gilab.key
+  ln -s /etc/gitlab/gitlab.crt /etc/nginx/ssl/gitlab.crt
+  ln -s /etc/gitlab/gitlab.key /etc/nginx/ssl/gitlab.key
 fi
 
 cp -pf /home/git/gitlab/config/database.yml.postgresql /home/git/gitlab/config/database.yml.example
