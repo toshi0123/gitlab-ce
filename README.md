@@ -58,7 +58,7 @@ docker run --name gitlab-postgres \
   quay.io/toshi0123/postgres:9.6.6-r0
 ```
 
-Then, run gitlab.
+Then, run gitlab. (If you want to set up with **https**, you have to read HTTPS section before starting gitlab container.)  
 
 ```shell=
 docker run --name gitlab \
@@ -114,10 +114,27 @@ Environment variables
 | GITLAB_SECRETS_OTP_KEY_BASE | `very-long-random-string` | Encryption key(default: `default`) |
 | GITLAB_HTTPS | `false` | HTTPS(default: `false`) |
 
-## Custumize config files
+### HTTPS
+
+The `GITLAB_HTTPS` flag is available only **first run**.  
+If you started `GITLAB_HTTPS` with `false`, you have to modify $PWD/gitlab/etc/gitlab.conf by yourself.  
+The example of https nginx config is /home/git/gitlab/lib/support/nginx/gitlab-ssl.  
+And in that case you are required to run `cp -pf /home/git/gitlab/lib/support/nginx/gitlab-ssl /etc/gitlab/example/gitlab.conf.example` for update gitlab.  
+
+Of cause you have to prepare the key pair.  
+Before starting gitlab container, store the key pair to $PWD/gitlab/etc directory.  
+
+```shell=
+$ mkdir -p ./gitlab/etc/
+$ cp -pf private.key ./gitlab/etc/gitlab.key
+$ cp -pf public.crt ./gitlab/etc/gitlab.crt
+```
+
+## Custumize configuration files
 
 You can modify some configuration files as you like.  
 The files are stored in the $PWD/gitlab/etc directory.  
+You can edit by your editor, and run `docker restart gitlab`.  
 These files are not modified by this container image except first run.  
 When you recreate the updated version of gitlab container image, the configuration files will be patched compared to the new one.  
 (If it cannot be patched with some conflict, the new container will not be started.)  
@@ -167,6 +184,14 @@ Then you remove the example file.
 ```
 $ rm -f ./gitlab/config/example/database.yml.example
 $ docker start gitlab
+```
+
+## Login in gitlab container for debug
+
+You want to login into the gitlab container, run the follow command.  
+
+```shell=
+$ docker exec -it gitlab sh
 ```
 
 Enjoy it!  
