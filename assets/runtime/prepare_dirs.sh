@@ -24,6 +24,12 @@ shared/cache
 shared/cache/archive
 EOF
 
+chmod -R ug+rwX,o-rwx /home/git/data/repositories
+chmod -R ug-s /home/git/data/repositories
+find /home/git/data/repositories -type d -print0 | sudo xargs -0 chmod g+s
+
+chmod 700 /home/git/data/uploads
+
 rm -rf /home/git/gitlab/public/uploads
 ln -s /home/git/data/uploads /home/git/gitlab/public/uploads
 
