@@ -1,6 +1,7 @@
 # gitlab-ce on alpine linux
 
 [![Docker Repository on Quay](https://quay.io/repository/toshi0123/gitlab-ce/status "Docker Repository on Quay")](https://quay.io/repository/toshi0123/gitlab-ce)
+[![](https://images.microbadger.com/badges/image/toshi0123/gitlab-ce.svg)](https://microbadger.com/images/toshi0123/gitlab-ce "Get your own image badge on microbadger.com")
 
 This image is under developing.  
 
