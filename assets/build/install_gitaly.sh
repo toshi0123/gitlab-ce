@@ -8,7 +8,7 @@ cd /home/git/gitaly
 sudo -u git -H cp config.toml.example config.toml
 
 sed -i '/vendor\/bundle/d' Makefile
-sed -i 's/bundle install/bundle install --system/' Makefile
+#sed -i 's/bundle install/bundle install --system/' Makefile
 
 make install
 
