@@ -5,7 +5,7 @@ RUN apk upgrade --no-cache && \
       vim \
       sudo \
       git \
-      ruby ruby-bundler ruby-rdoc ruby-rake ruby-bigdecimal ruby-irb ruby-etc \
+      ruby ruby-bundler ruby-rdoc ruby-rake ruby-bigdecimal ruby-irb \
       nodejs \
       postgresql-client \
       tzdata \
