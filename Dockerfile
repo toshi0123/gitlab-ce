@@ -1,6 +1,6 @@
 FROM alpine:3.7
 
-ENV TAG=v10.0.7
+ENV TAG=v9.5.10
 
 RUN apk upgrade --no-cache && \
     apk add --no-cache \
@@ -15,7 +15,8 @@ RUN apk upgrade --no-cache && \
       nginx \
       patch \
       dcron \
-      logrotate
+      logrotate \
+      python2
 
 COPY assets /home/git/assets/
 
