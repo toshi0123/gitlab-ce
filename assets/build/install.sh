@@ -13,6 +13,7 @@ apk add --no-cache --virtual .builddev \
   libffi-dev \
   cmake \
   postgresql-dev \
+  mariadb-dev \
   linux-headers \
   re2-dev \
   libassuan-dev \
