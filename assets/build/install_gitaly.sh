@@ -10,8 +10,7 @@ sudo -u git -H cp config.toml.example config.toml
 sed -i '/vendor\/bundle/d' Makefile
 #sed -i 's/bundle install/bundle install --system/' Makefile
 
-#BUNDLE_FLAGS="--system" make install
-make install
+BUNDLE_FLAGS="--system" make install
 
 make clean
 
