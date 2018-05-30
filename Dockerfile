@@ -1,5 +1,7 @@
 FROM alpine:3.7
 
+ENV TAG=v10.7.5
+
 RUN apk upgrade --no-cache && \
     apk add --no-cache \
       vim \
