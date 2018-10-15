@@ -1,6 +1,6 @@
 FROM alpine:3.7
 
-ENV TAG=v11.1.7
+ENV TAG=v11.1.8
 
 RUN apk upgrade --no-cache && \
     apk add --no-cache \
