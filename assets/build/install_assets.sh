@@ -7,4 +7,4 @@ sudo -u git -H bundle exec rake gettext:compile RAILS_ENV=production --trace > g
 
 # assets
 sudo -u git -H yarn install --production --pure-lockfile
-sudo -u git -H env NODE_OPTIONS="--max-old-space-size=8192" bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production --trace || { exit 1; }
+sudo -u git -H env NODE_OPTIONS="--max-old-space-size=2048" bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production --trace || { exit 1; }
