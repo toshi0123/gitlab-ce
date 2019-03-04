@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM node:8.15.1-alpine
 
 RUN apk upgrade --no-cache && \
     apk add --no-cache \
@@ -6,7 +6,6 @@ RUN apk upgrade --no-cache && \
       sudo \
       git \
       ruby ruby-bundler ruby-rdoc ruby-rake ruby-bigdecimal ruby-irb \
-      nodejs \
       postgresql-client \
       tzdata \
       procps \
