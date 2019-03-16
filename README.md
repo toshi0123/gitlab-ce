@@ -56,7 +56,7 @@ docker run --name gitlab-postgres \
   --log-opt max-file=4 \
   -v $PWD/postgres:/var/lib/postgresql/data:rw \
   --network gitlab-network \
-  quay.io/toshi0123/postgres:9.6.6-r0
+  quay.io/toshi0123/postgres:9.6.10-r0
 ```
 
 Then, run gitlab. (If you want to set up with **https**, you have to read HTTPS section before starting gitlab container.)  
@@ -93,7 +93,8 @@ GitLab and all its components are up and running.
 + set +x
 ```
 
-And you can access http://127.0.0.1 in your browser.
+And you can access http://127.0.0.1 in your browser.  
+First time, you can change your root account's password. Then you can login as root.
 
 All data and config, log files are in $PWD/redis and $PWD/postgres, $PWD/gitlab directories.  
 **Please keep these carefully.**

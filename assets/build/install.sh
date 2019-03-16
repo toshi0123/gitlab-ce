@@ -18,8 +18,7 @@ apk add --no-cache --virtual .builddev \
   libassuan-dev \
   libgpg-error-dev \
   gpgme-dev \
-  coreutils \
-  yarn
+  coreutils
 
 sudo -u git -H echo "install: --no-document" > ~/.gemrc
 
