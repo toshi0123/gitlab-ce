@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM node:8.15.1-alpine
 
 ENV TAG=v11.4.14
 
@@ -8,7 +8,6 @@ RUN apk upgrade --no-cache && \
       sudo \
       git \
       ruby ruby-bundler ruby-rdoc ruby-rake ruby-bigdecimal ruby-irb \
-      nodejs \
       postgresql-client \
       tzdata \
       procps \
