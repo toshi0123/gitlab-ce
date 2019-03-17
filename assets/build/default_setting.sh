@@ -21,8 +21,8 @@ sed -i \
     /etc/init.d/gitlab /etc/default/gitlab
 
 # busybox pkill is used even if procps was installed
-rm -f /usr/bin/pkill
-ln -s /bin/pkill /usr/bin/pkill
+#rm -f /usr/bin/pkill
+#ln -s /bin/pkill /usr/bin/pkill
 
 mkdir -p /run/nginx
 rm -f /etc/nginx/conf.d/default.conf
