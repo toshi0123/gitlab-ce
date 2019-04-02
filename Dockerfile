@@ -1,6 +1,6 @@
 FROM node:8.15.1-alpine
 
-ENV TAG=v11.8.3
+ENV TAG=v11.8.6
 
 RUN apk upgrade --no-cache && \
     apk add --no-cache \
