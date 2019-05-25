@@ -1,5 +1,7 @@
 FROM node:8.15.1-alpine
 
+ENV TAG=v11.11.0
+
 RUN apk upgrade --no-cache && \
     apk add --no-cache \
       vim \
