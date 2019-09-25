@@ -3,10 +3,10 @@
 [![Docker Repository on Quay](https://quay.io/repository/toshi0123/gitlab-ce/status "Docker Repository on Quay")](https://quay.io/repository/toshi0123/gitlab-ce)
 [![](https://images.microbadger.com/badges/image/toshi0123/gitlab-ce.svg)](https://microbadger.com/images/toshi0123/gitlab-ce "Get your own image badge on microbadger.com")
 
-This image is under developing.  
+This image is under development.  
 
 This gitlab-ce container image is built from source files.  
-You can find the installation guides as follows.  
+You can find the installation guide as follows.  
 https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/install/installation.md
 
 This docker image contains
@@ -17,17 +17,17 @@ This docker image contains
 1. nginx
 
 Postgresql and redis are not contained in this image.  
-You have to setup by yourself.  
+You have to set them up by yourself.  
 
 ## Quick start
 
-First, you have to create new network.
+First, you have to create a new network.
 
 ```shell=
 docker network create gitlab-network
 ```
 
-And run redis. (On this time I use my own redis image.)  
+And run redis. (At this time I use my own redis image.)  
 You can use library/redis or other redis container images.  
 
 ```shell=
@@ -41,7 +41,7 @@ docker run --name gitlab-redis \
   quay.io/toshi0123/redis:latest
 ```
 
-And run postgresql. (Rails 4 is not support to use Postgresql 10.)  
+And run postgresql. (Rails 4 is not supported with Postgresql 10.)  
 You can use library/postgres:9.6.6-alpine or other postgresql container images.  
 
 ```shell=
@@ -59,7 +59,7 @@ docker run --name gitlab-postgres \
   quay.io/toshi0123/postgres:9.6.10-r0
 ```
 
-Then, run gitlab. (If you want to set up with **https**, you have to read HTTPS section before starting gitlab container.)  
+Then, run gitlab. (If you want to set it up with **https**, you have to read the HTTPS section before starting the gitlab container.)  
 
 ```shell=
 docker run --name gitlab \
@@ -93,11 +93,11 @@ GitLab and all its components are up and running.
 + set +x
 ```
 
-And you can access http://127.0.0.1 in your browser.  
-First time, you can change your root account's password. Then you can login as root.
+And now you can access http://127.0.0.1 in your browser.  
+The first time you access the URL, you can change your root account's password. Then you can log in as root.
 
-All data and config, log files are in $PWD/redis and $PWD/postgres, $PWD/gitlab directories.  
-**Please keep these carefully.**
+All data and config, log files are in $PWD/redis and $PWD/postgres and $PWD/gitlab directories.  
+**Please maintain these carefully.**
 
 Environment variables
 ---
@@ -118,13 +118,13 @@ Environment variables
 
 ### HTTPS
 
-The `GITLAB_HTTPS` flag is available only **first run**.  
-If you started `GITLAB_HTTPS` with `false`, you have to modify $PWD/gitlab/etc/gitlab.conf by yourself.  
-The example of https nginx config is /home/git/gitlab/lib/support/nginx/gitlab-ssl.  
-And in that case you are required to run `cp -pf /home/git/gitlab/lib/support/nginx/gitlab-ssl /etc/gitlab/example/gitlab.conf.example` for update gitlab.  
+The `GITLAB_HTTPS` flag is available only during **first run**.  
+If you started `GITLAB_HTTPS` with `false`, you will have to modify $PWD/gitlab/etc/gitlab.conf by yourself.  
+A config example for https enabled in nginx is at /home/git/gitlab/lib/support/nginx/gitlab-ssl.  
+And also run `cp -pf /home/git/gitlab/lib/support/nginx/gitlab-ssl /etc/gitlab/example/gitlab.conf.example` and update gitlab.  
 
-Of cause you have to prepare the key pair.  
-Before starting gitlab container, store the key pair to $PWD/gitlab/etc directory.  
+Of course you have to prepare the key pair.  
+Before starting gitlab container, store the key pair in the $PWD/gitlab/etc directory.  
 
 ```shell=
 $ mkdir -p ./gitlab/etc/
@@ -134,15 +134,15 @@ $ cp -pf public.crt ./gitlab/etc/gitlab.crt
 
 ## Custumize configuration files
 
-You can modify some configuration files as you like.  
+You can modify some configuration files as preferred.  
 The files are stored in the $PWD/gitlab/etc directory.  
-You can edit by your editor, and run `docker restart gitlab`.  
-These files are not modified by this container image except first run.  
+You can edit with your editor normally, and then run `docker restart gitlab`.  
+These files are not modified by this container image except during the first run.  
 When you recreate the updated version of gitlab container image, the configuration files will be patched compared to the new one.  
-(If it cannot be patched with some conflict, the new container will not be started.)  
+(If it cannot be patched due to conflict, the new container will not be started.)  
 
 ### Example of update conflict
-Follows logs shows update conflict of database.yml. (v10.1.5 to v10.2.4)
+The following logs shows an update conflict for database.yml. (v10.1.5 to v10.2.4)
 
 ```
 patching file /home/git/data/config/database.yml
@@ -180,8 +180,7 @@ Hunk #4 FAILED at 48.
 +  host: localhost
 ```
 
-You have to verify $PWD/gitlab/etc/database.yml.  
-Then you remove the example file.
+You would have to verify $PWD/gitlab/etc/database.yml , and then remove the example file.
 
 ```
 $ rm -f ./gitlab/config/example/database.yml.example
@@ -190,7 +189,7 @@ $ docker start gitlab
 
 ## Login in gitlab container for debug
 
-You want to login into the gitlab container, run the follow command.  
+If you want to log into the gitlab container, run the follow command.  
 
 ```shell=
 $ docker exec -it gitlab sh
